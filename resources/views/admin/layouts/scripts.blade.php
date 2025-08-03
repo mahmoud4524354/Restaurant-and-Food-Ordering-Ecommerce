@@ -20,3 +20,13 @@
 <!-- Template JS File -->
 <script src="{{asset('admin/assets')}}/js/scripts.js"></script>
 <script src="{{asset('admin/assets')}}/js/custom.js"></script>
+
+<script src="{{asset('frontend')}}/js/toastr.min.js"></script>
+
+<script>
+    @if ($errors->any())
+    @foreach ($errors->all() as $error)
+    toastr.error("{{ $error }}")
+    @endforeach
+    @endif
+</script>
