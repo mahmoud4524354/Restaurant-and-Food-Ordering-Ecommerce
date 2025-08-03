@@ -1,0 +1,26 @@
+{
+    "sourceFile": "routes/web.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1754219496452,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1754219594695,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,6 +32,6 @@\n require __DIR__.'/auth.php';\n \n \n Route::get('home',function(){\n-    return view('front.home.index');\n+    return view('f');\n });\n"
+                },
+                {
+                    "date": 1754219609019,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,6 +32,6 @@\n require __DIR__.'/auth.php';\n \n \n Route::get('home',function(){\n-    return view('front.');\n+    return view('front.home.index');\n });\n"
+                }
+            ],
+            "date": 1754219496452,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse App\\Http\\Controllers\\Admin\\AdminDashboardController;\nuse App\\Http\\Controllers\\ProfileController;\nuse Illuminate\\Support\\Facades\\Route;\n\n/*\n|--------------------------------------------------------------------------\n| Web Routes\n|--------------------------------------------------------------------------\n|\n| Here is where you can register web routes for your application. These\n| routes are loaded by the RouteServiceProvider and all of them will\n| be assigned to the \"web\" middleware group. Make something great!\n|\n*/\n\nRoute::get('/', function () {\n    return view('welcome');\n});\n\nRoute::get('/dashboard', function () {\n    return view('dashboard');\n})->middleware(['auth', 'verified'])->name('dashboard');\n\nRoute::middleware('auth')->group(function () {\n    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');\n    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');\n    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');\n});\n\nrequire __DIR__.'/auth.php';\n\n\nRoute::get('home',function(){\n    return view('front.home.index');\n});\n"
+        }
+    ]
+}
