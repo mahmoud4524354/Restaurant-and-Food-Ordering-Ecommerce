@@ -2,11 +2,10 @@
 
 @section('content')
 
-
     <!--=============================
         BREADCRUMB START
     ==============================-->
-    <section class="fp__breadcrumb" style="background: url(images/counter_bg.jpg);">
+    <section class="fp__breadcrumb" style="background: url({{ config('settings.breadcrumb') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -34,45 +33,61 @@
                         <div class="fp__dashboard_menu">
                             <div class="dasboard_header">
                                 <div class="dasboard_header_img">
-                                    <img src="images/comment_img_2.png" alt="user" class="img-fluid w-100">
+                                    <img src="{{ auth()->user()->avatar }}" alt="user" class="img-fluid w-100">
                                     <label for="upload"><i class="far fa-camera"></i></label>
-                                    <input type="file" id="upload" hidden>
+                                    <form id="avatar_form">
+                                        <input type="file" id="upload" hidden name="avatar">
+                                    </form>
                                 </div>
-                                <h2>hasib ahmed</h2>
+                                <h2>{{ auth()->user()->name }}</h2>
                             </div>
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                                  aria-orientation="vertical">
                                 <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
-                                        data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
-                                        aria-selected="true"><span><i class="fas fa-user"></i></span> Parsonal Info</button>
+                                        data-bs-target="#v-pills-home" type="button" role="tab"
+                                        aria-controls="v-pills-home"
+                                        aria-selected="true"><span><i class="fas fa-user"></i></span> Parsonal Info
+                                </button>
 
                                 <button class="nav-link" id="v-pills-address-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-address" type="button" role="tab"
                                         aria-controls="v-pills-address" aria-selected="true"><span><i
-                                            class="fas fa-user"></i></span>address</button>
+                                            class="fas fa-user"></i></span>address
+                                </button>
 
                                 <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-profile" type="button" role="tab"
                                         aria-controls="v-pills-profile" aria-selected="false"><span><i
-                                            class="fas fa-bags-shopping"></i></span> Order</button>
+                                            class="fas fa-bags-shopping"></i></span> Order
+                                </button>
 
                                 <button class="nav-link" id="v-pills-messages-tab2" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-messages2" type="button" role="tab"
                                         aria-controls="v-pills-messages2" aria-selected="false"><span><i
-                                            class="far fa-heart"></i></span> wishlist</button>
+                                            class="far fa-heart"></i></span> wishlist
+                                </button>
 
                                 <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-messages" type="button" role="tab"
                                         aria-controls="v-pills-messages" aria-selected="false"><span><i
-                                            class="fas fa-star"></i></span> Reviews</button>
+                                            class="fas fa-star"></i></span> Reviews
+                                </button>
 
                                 <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-settings" type="button" role="tab"
                                         aria-controls="v-pills-settings" aria-selected="false"><span><i
-                                            class="fas fa-user-lock"></i></span> Change Password </button>
+                                            class="fas fa-user-lock"></i></span> Change Password
+                                </button>
 
-                                <button class="nav-link" type="button"><span> <i class="fas fa-sign-out-alt"></i>
-                                    </span> Logout</button>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <button style="width: 100%;" class="nav-link" onclick="event.preventDefault();
+                                    this.closest('form').submit();" type="button"><span> <i
+                                                class="fas fa-sign-out-alt"></i>
+                                    </span> Logout
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -117,41 +132,37 @@
                                             </h4>
 
                                             <div class="personal_info_text">
-                                                <p><span>Name:</span> Hasib Ahmed</p>
-                                                <p><span>Email:</span> hasibahmed@gmail.com</p>
-                                                <p><span>Phone:</span> 023 434 54354</p>
-                                                <p><span>Address:</span> 7232 Broadway Suite 308, Jackson Heights,
-                                                    11372, NY, United States </p>
+                                                <p><span>Name:</span> {{auth()->user()->name}}</p>
+                                                <p><span>Email:</span> {{auth()->user()->email}}</p>
                                             </div>
 
+
                                             <div class="fp_dash_personal_info_edit comment_input p-0">
-                                                <form>
+                                                <form method="Post" action="{{route('profile.update')}}">
+                                                    @csrf
+                                                    @method('PUT')
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="fp__comment_imput_single">
                                                                 <label>name</label>
-                                                                <input type="text" placeholder="Name">
+                                                                <input type="text" placeholder="Name" name="name"
+                                                                       value="{{auth()->user()->name}}">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-6 col-lg-6">
+                                                        <div class="col-xl-12 col-lg-6">
                                                             <div class="fp__comment_imput_single">
                                                                 <label>email</label>
-                                                                <input type="email" placeholder="Email">
+                                                                <input type="email" placeholder="Email" name="email"
+                                                                       value="{{auth()->user()->email}}">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-6 col-lg-6">
-                                                            <div class="fp__comment_imput_single">
-                                                                <label>phone</label>
-                                                                <input type="text" placeholder="Phone">
-                                                            </div>
+                                                        <div class="col-xl-12 col-lg-6">
+
+                                                            <button type="submit"
+                                                                    class="common_btn mt_20">submit
+                                                            </button>
                                                         </div>
-                                                        <div class="col-xl-12">
-                                                            <div class="fp__comment_imput_single">
-                                                                <label>address</label>
-                                                                <textarea rows="4" placeholder="Address"></textarea>
-                                                            </div>
-                                                            <button type="submit" class="common_btn">submit</button>
-                                                        </div>
+
                                                     </div>
                                                 </form>
                                             </div>
@@ -172,11 +183,13 @@
                                                         <div class="fp__checkout_single_address">
                                                             <div class="form-check">
                                                                 <label class="form-check-label">
-                                                                    <span class="icon"><i class="fas fa-home"></i>
-                                                                        home</span>
+                                                                                                    <span
+                                                                                                        class="icon"><i
+                                                                                                            class="fas fa-home"></i>
+                                                                                                        home</span>
                                                                     <span class="address">house# 22, road# 10, block# G,
-                                                                        Basundhara
-                                                                        Residential Area.</span>
+                                                                                                        Basundhara
+                                                                                                        Residential Area.</span>
                                                                 </label>
                                                             </div>
                                                             <ul>
@@ -192,12 +205,13 @@
                                                         <div class="fp__checkout_single_address">
                                                             <div class="form-check">
                                                                 <label class="form-check-label">
-                                                                    <span class="icon"><i
-                                                                            class="far fa-car-building"></i>
-                                                                        office</span>
+                                                                                                    <span
+                                                                                                        class="icon"><i
+                                                                                                            class="far fa-car-building"></i>
+                                                                                                        office</span>
                                                                     <span class="address">house# 22, road# 10, block# G,
-                                                                        Basundhara
-                                                                        Residential Area.</span>
+                                                                                                        Basundhara
+                                                                                                        Residential Area.</span>
                                                                 </label>
                                                             </div>
                                                             <ul>
@@ -213,13 +227,14 @@
                                                         <div class="fp__checkout_single_address">
                                                             <div class="form-check">
                                                                 <label class="form-check-label">
-                                                                    <span class="icon"><i
-                                                                            class="far fa-car-building"></i>
-                                                                        office
-                                                                        2</span>
+                                                                                                    <span
+                                                                                                        class="icon"><i
+                                                                                                            class="far fa-car-building"></i>
+                                                                                                        office
+                                                                                                        2</span>
                                                                     <span class="address">house# 22, road# 10, block# G,
-                                                                        Basundhara
-                                                                        Residential Area.</span>
+                                                                                                        Basundhara
+                                                                                                        Residential Area.</span>
                                                                 </label>
                                                             </div>
                                                             <ul>
@@ -235,11 +250,13 @@
                                                         <div class="fp__checkout_single_address">
                                                             <div class="form-check">
                                                                 <label class="form-check-label">
-                                                                    <span class="icon"><i class="fas fa-home"></i> home
-                                                                        2</span>
+                                                                                                    <span
+                                                                                                        class="icon"><i
+                                                                                                            class="fas fa-home"></i> home
+                                                                                                        2</span>
                                                                     <span class="address">house# 22, road# 10, block# G,
-                                                                        Basundhara
-                                                                        Residential Area.</span>
+                                                                                                        Basundhara
+                                                                                                        Residential Area.</span>
                                                                 </label>
                                                             </div>
                                                             <ul>
@@ -327,15 +344,17 @@
                                                         </div>
                                                         <div class="col-md-12 col-lg-12 col-xl-12">
                                                             <div class="fp__check_single_form">
-                                                                <textarea cols="3" rows="4"
-                                                                          placeholder="Address"></textarea>
+                                                                                                <textarea cols="3"
+                                                                                                          rows="4"
+                                                                                                          placeholder="Address"></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="fp__check_single_form check_area">
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio"
-                                                                           name="flexRadioDefault" id="flexRadioDefault1">
+                                                                           name="flexRadioDefault"
+                                                                           id="flexRadioDefault1">
                                                                     <label class="form-check-label"
                                                                            for="flexRadioDefault1">
                                                                         home
@@ -343,7 +362,8 @@
                                                                 </div>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio"
-                                                                           name="flexRadioDefault" id="flexRadioDefault2">
+                                                                           name="flexRadioDefault"
+                                                                           id="flexRadioDefault2">
                                                                     <label class="form-check-label"
                                                                            for="flexRadioDefault2">
                                                                         office
@@ -353,9 +373,11 @@
                                                         </div>
                                                         <div class="col-12">
                                                             <button type="button"
-                                                                    class="common_btn cancel_new_address">cancel</button>
+                                                                    class="common_btn cancel_new_address">cancel
+                                                            </button>
                                                             <button type="submit" class="common_btn">save
-                                                                address</button>
+                                                                address
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -434,8 +456,9 @@
                                                         </div>
                                                         <div class="col-md-12 col-lg-12 col-xl-12">
                                                             <div class="fp__check_single_form">
-                                                                <textarea cols="3" rows="4"
-                                                                          placeholder="Address"></textarea>
+                                                                                                <textarea cols="3"
+                                                                                                          rows="4"
+                                                                                                          placeholder="Address"></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
@@ -462,10 +485,12 @@
                                                         </div>
                                                         <div class="col-12">
                                                             <button type="button"
-                                                                    class="common_btn cancel_edit_address">cancel</button>
+                                                                    class="common_btn cancel_edit_address">cancel
+                                                            </button>
 
                                                             <button type="submit" class="common_btn">update
-                                                                address</button>
+                                                                address
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -895,7 +920,9 @@
                                                                 <span>145</span>
                                                             </p>
                                                             <a class="title" href="menu_details.html">chicken Masala</a>
-                                                            <h5 class="price">$80.00 <del>90.00</del></h5>
+                                                            <h5 class="price">$80.00
+                                                                <del>90.00</del>
+                                                            </h5>
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
@@ -952,7 +979,9 @@
                                                                 <span>74</span>
                                                             </p>
                                                             <a class="title" href="menu_details.html">chicken Masala</a>
-                                                            <h5 class="price">$80.00 <del>90.00</del></h5>
+                                                            <h5 class="price">$80.00
+                                                                <del>90.00</del>
+                                                            </h5>
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
@@ -980,7 +1009,9 @@
                                                                 <span>120</span>
                                                             </p>
                                                             <a class="title" href="menu_details.html">chicken Masala</a>
-                                                            <h5 class="price">$80.00 <del>90.00</del></h5>
+                                                            <h5 class="price">$80.00
+                                                                <del>90.00</del>
+                                                            </h5>
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
@@ -1063,13 +1094,13 @@
                                                         <h3><a href="#">mamun ahmed shuvo</a> <span>29 oct 2022 </span>
                                                         </h3>
                                                         <span class="rating">
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fad fa-star-half-alt"></i>
-                                                            <i class="fal fa-star"></i>
-                                                            <b>(120)</b>
-                                                        </span>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fad fa-star-half-alt"></i>
+                                                                                            <i class="fal fa-star"></i>
+                                                                                            <b>(120)</b>
+                                                                                        </span>
                                                         <p>Sure there isn't anything embarrassing hiidden in the
                                                             middles of text. All erators on the Internet
                                                             tend to repeat predefined chunks</p>
@@ -1082,13 +1113,13 @@
                                                         <h3><a href="#">asaduzzaman khan</a> <span>29 oct 2022 </span>
                                                         </h3>
                                                         <span class="rating">
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fad fa-star-half-alt"></i>
-                                                            <i class="fal fa-star"></i>
-                                                            <b>(120)</b>
-                                                        </span>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fad fa-star-half-alt"></i>
+                                                                                            <i class="fal fa-star"></i>
+                                                                                            <b>(120)</b>
+                                                                                        </span>
                                                         <p>Sure there isn't anything embarrassing hiidden in the
                                                             middles of text. All erators on the Internet
                                                             tend to repeat predefined chunks</p>
@@ -1101,13 +1132,13 @@
                                                         <h3><a href="#">ariful islam rupom</a> <span>29 oct 2022 </span>
                                                         </h3>
                                                         <span class="rating">
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fad fa-star-half-alt"></i>
-                                                            <i class="fal fa-star"></i>
-                                                            <b>(120)</b>
-                                                        </span>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fad fa-star-half-alt"></i>
+                                                                                            <i class="fal fa-star"></i>
+                                                                                            <b>(120)</b>
+                                                                                        </span>
                                                         <p>Sure there isn't anything embarrassing hiidden in the
                                                             middles of text. All erators on the Internet
                                                             tend to repeat predefined chunks</p>
@@ -1120,13 +1151,13 @@
                                                         <h3><a href="#">ali ahmed jakir</a> <span>29 oct 2022 </span>
                                                         </h3>
                                                         <span class="rating">
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fad fa-star-half-alt"></i>
-                                                            <i class="fal fa-star"></i>
-                                                            <b>(120)</b>
-                                                        </span>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fas fa-star"></i>
+                                                                                            <i class="fad fa-star-half-alt"></i>
+                                                                                            <i class="fal fa-star"></i>
+                                                                                            <b>(120)</b>
+                                                                                        </span>
                                                         <p>Sure there isn't anything embarrassing hiidden in the
                                                             middles of text. All erators on the Internet
                                                             tend to repeat predefined chunks</p>
@@ -1139,41 +1170,7 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
-                                     aria-labelledby="v-pills-settings-tab">
-                                    <div class="fp_dashboard_body fp__change_password">
-                                        <div class="fp__review_input">
-                                            <h3>change password</h3>
-                                            <div class="comment_input pt-0">
-                                                <form>
-                                                    <div class="row">
-                                                        <div class="col-xl-6">
-                                                            <div class="fp__comment_imput_single">
-                                                                <label>Current Password</label>
-                                                                <input type="password" placeholder="Current Password">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-6">
-                                                            <div class="fp__comment_imput_single">
-                                                                <label>New Password</label>
-                                                                <input type="password" placeholder="New Password">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-12">
-                                                            <div class="fp__comment_imput_single">
-                                                                <label>confirm Password</label>
-                                                                <input type="password" placeholder="Confirm Password">
-                                                            </div>
-                                                            <button type="submit"
-                                                                    class="common_btn mt_20">submit</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                @include('frontend.dashboard.change-password')
                             </div>
                         </div>
                     </div>
@@ -1183,89 +1180,115 @@
     </section>
 
     <!-- CART POPUT START -->
-    <div class="fp__cart_popup">
-        <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
-                                class="fal fa-times"></i></button>
-                        <div class="fp__cart_popup_img">
-                            <img src="images/menu1.png" alt="menu" class="img-fluid w-100">
-                        </div>
-                        <div class="fp__cart_popup_text">
-                            <a href="#" class="title">Maxican Pizza Test Better</a>
-                            <p class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <i class="far fa-star"></i>
-                                <span>(201)</span>
-                            </p>
-                            <h4 class="price">$320.00 <del>$350.00</del> </h4>
+    {{--    <div class="fp__cart_popup">--}}
+    {{--        <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">--}}
+    {{--            <div class="modal-dialog modal-dialog-centered">--}}
+    {{--                <div class="modal-content">--}}
+    {{--                    <div class="modal-body">--}}
+    {{--                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i--}}
+    {{--                                class="fal fa-times"></i></button>--}}
+    {{--                        <div class="fp__cart_popup_img">--}}
+    {{--                            <img src="images/menu1.png" alt="menu" class="img-fluid w-100">--}}
+    {{--                        </div>--}}
+    {{--                        <div class="fp__cart_popup_text">--}}
+    {{--                            <a href="#" class="title">Maxican Pizza Test Better</a>--}}
+    {{--                            <p class="rating">--}}
+    {{--                                <i class="fas fa-star"></i>--}}
+    {{--                                <i class="fas fa-star"></i>--}}
+    {{--                                <i class="fas fa-star"></i>--}}
+    {{--                                <i class="fas fa-star-half-alt"></i>--}}
+    {{--                                <i class="far fa-star"></i>--}}
+    {{--                                <span>(201)</span>--}}
+    {{--                            </p>--}}
+    {{--                            <h4 class="price">$320.00 <del>$350.00</del> </h4>--}}
 
-                            <div class="details_size">
-                                <h5>select size</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="large"
-                                           checked>
-                                    <label class="form-check-label" for="large">
-                                        large <span>+ $350</span>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="medium">
-                                    <label class="form-check-label" for="medium">
-                                        medium <span>+ $250</span>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="small">
-                                    <label class="form-check-label" for="small">
-                                        small <span>+ $150</span>
-                                    </label>
-                                </div>
-                            </div>
+    {{--                            <div class="details_size">--}}
+    {{--                                <h5>select size</h5>--}}
+    {{--                                <div class="form-check">--}}
+    {{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="large"--}}
+    {{--                                           checked>--}}
+    {{--                                    <label class="form-check-label" for="large">--}}
+    {{--                                        large <span>+ $350</span>--}}
+    {{--                                    </label>--}}
+    {{--                                </div>--}}
+    {{--                                <div class="form-check">--}}
+    {{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="medium">--}}
+    {{--                                    <label class="form-check-label" for="medium">--}}
+    {{--                                        medium <span>+ $250</span>--}}
+    {{--                                    </label>--}}
+    {{--                                </div>--}}
+    {{--                                <div class="form-check">--}}
+    {{--                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="small">--}}
+    {{--                                    <label class="form-check-label" for="small">--}}
+    {{--                                        small <span>+ $150</span>--}}
+    {{--                                    </label>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
 
-                            <div class="details_extra_item">
-                                <h5>select option <span>(optional)</span></h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="coca-cola">
-                                    <label class="form-check-label" for="coca-cola">
-                                        coca-cola <span>+ $10</span>
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="7up">
-                                    <label class="form-check-label" for="7up">
-                                        7up <span>+ $15</span>
-                                    </label>
-                                </div>
-                            </div>
+    {{--                            <div class="details_extra_item">--}}
+    {{--                                <h5>select option <span>(optional)</span></h5>--}}
+    {{--                                <div class="form-check">--}}
+    {{--                                    <input class="form-check-input" type="checkbox" value="" id="coca-cola">--}}
+    {{--                                    <label class="form-check-label" for="coca-cola">--}}
+    {{--                                        coca-cola <span>+ $10</span>--}}
+    {{--                                    </label>--}}
+    {{--                                </div>--}}
+    {{--                                <div class="form-check">--}}
+    {{--                                    <input class="form-check-input" type="checkbox" value="" id="7up">--}}
+    {{--                                    <label class="form-check-label" for="7up">--}}
+    {{--                                        7up <span>+ $15</span>--}}
+    {{--                                    </label>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
 
-                            <div class="details_quentity">
-                                <h5>select quentity</h5>
-                                <div class="quentity_btn_area d-flex flex-wrapa align-items-center">
-                                    <div class="quentity_btn">
-                                        <button class="btn btn-danger"><i class="fal fa-minus"></i></button>
-                                        <input type="text" placeholder="1">
-                                        <button class="btn btn-success"><i class="fal fa-plus"></i></button>
-                                    </div>
-                                    <h3>$320.00</h3>
-                                </div>
-                            </div>
-                            <ul class="details_button_area d-flex flex-wrap">
-                                <li><a class="common_btn" href="#">add to cart</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{--                            <div class="details_quentity">--}}
+    {{--                                <h5>select quentity</h5>--}}
+    {{--                                <div class="quentity_btn_area d-flex flex-wrapa align-items-center">--}}
+    {{--                                    <div class="quentity_btn">--}}
+    {{--                                        <button class="btn btn-danger"><i class="fal fa-minus"></i></button>--}}
+    {{--                                        <input type="text" placeholder="1">--}}
+    {{--                                        <button class="btn btn-success"><i class="fal fa-plus"></i></button>--}}
+    {{--                                    </div>--}}
+    {{--                                    <h3>$320.00</h3>--}}
+    {{--                                </div>--}}
+    {{--                            </div>--}}
+    {{--                            <ul class="details_button_area d-flex flex-wrap">--}}
+    {{--                                <li><a class="common_btn" href="#">add to cart</a></li>--}}
+    {{--                            </ul>--}}
+    {{--                        </div>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
     <!-- CART POPUT END -->
     <!--=========================
         DASHBOARD END
     ==========================-->
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#upload').on('change', function () {
+                let form = $('#avatar_form')[0];
+                let formData = new FormData(form);
+
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ route('profile.avatar.update') }}",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            window.location.reload();
+                        }
+                    },
+                    error: function (error) {
+                        console.error(response);
+                    }
+                })
+            })
+        })
+    </script>
+@endpush
