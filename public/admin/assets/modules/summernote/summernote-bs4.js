@@ -3750,7 +3750,7 @@ var Editor = /** @class */ (function () {
             })(idx);
             this.context.memo('help.formatH' + idx, this.lang.help['formatH' + idx]);
         }
-
+        
         this.insertParagraph = this.wrapCommand(function () {
             _this.typing.insertParagraph(_this.editable);
         });
@@ -7055,7 +7055,7 @@ $$1.summernote = $$1.extend($$1.summernote, {
             'statusbar': Statusbar,
             'fullscreen': Fullscreen,
             'handle': Handle,
-            // FIXME: HintPopover must be frontend of autolink
+            // FIXME: HintPopover must be front of autolink
             //  - Script error about range when Enter key is pressed on hint popover
             'hintPopover': HintPopover,
             'autoLink': AutoLink,

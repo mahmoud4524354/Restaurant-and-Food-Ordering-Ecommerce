@@ -401,7 +401,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        pps.backspace = false;
-
+	        
 	        owner.element.value = value;
 	        owner.onInput(value);
 	    },
@@ -494,7 +494,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    thousand: 'thousand',
 	    lakh:     'lakh',
 	    wan:      'wan',
-	    none:     'none'
+	    none:     'none'    
 	};
 
 	NumeralFormatter.prototype = {
@@ -849,7 +849,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        // starts with 50/56-58/6304/67; 16 digits
 	        maestro: /^(?:5[0678]\d{0,2}|6304|67\d{0,2})\d{0,12}/,
-
+	        
 	        // starts with 22; 16 digits
 	        mir: /^220[0-4]\d{0,12}/,
 
@@ -965,7 +965,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // strip value by prefix length
 	    // for prefix: PRE
 	    // (PRE123, 3) -> 123
-	    // (PR123, 3) -> 23 this happens when user hits backspace in frontend of "PRE"
+	    // (PR123, 3) -> 23 this happens when user hits backspace in front of "PRE"
 	    getPrefixStrippedValue: function (value, prefix, prefixLength) {
 	        if (value.slice(0, prefixLength) !== prefix) {
 	            var diffIndex = this.getFirstDiffIndex(prefix, value.slice(0, prefixLength));

@@ -85,7 +85,6 @@
     SCROLL BUTTON END
 ==============================-->
 
-
 <!--jquery library js-->
 <script src="{{ asset('frontend/js/jquery-3.6.0.min.js') }}"></script>
 <!--bootstrap js-->
@@ -142,7 +141,6 @@
 </script>
 
 @stack('scripts')
-
 </body>
 
 </html>
