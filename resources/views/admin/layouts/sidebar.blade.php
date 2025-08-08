@@ -51,6 +51,7 @@
         </div>
 
         <ul class="sidebar-menu">
+
             <li class="menu-header">Dashboard</li>
             <li class="active">
                 <a href="{{route('admin.dashboard')}}" class="nav-link "><i class="fas fa-fire"></i><span>Dashboard</span></a>
@@ -59,6 +60,10 @@
             <li class="menu-header">Starter</li>
             <li>
                 <a href="{{route('admin.slider.index')}}" class="nav-link "><i class="fas fa-columns"></i> <span>Slider</span></a>
+            </li>
+
+            <li>
+                <a href="{{route('admin.why-choose-us.index')}}" class="nav-link "><i class="fas fa-columns"></i> <span>Why Choose Us</span></a>
             </li>
         </ul>
     </aside>
