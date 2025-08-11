@@ -69,12 +69,24 @@
             </li>
 
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown" data-togle="dropdown"><i class="fas fa-columns"></i> <span>Manage Restaurant</span></a>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                    <i class="fas fa-columns"></i>
+                    <span>Manage Restaurant</span>
+                </a>
                 <ul class="dropdown-menu">
-                    <a href="{{route('admin.category.index')}}" class="nav-link "><i class="fas fa-columns"></i>
-                        <span>Product Category</span></a>
+                    <li>
+                        <a class="nav-link" href="{{ route('admin.category.index') }}">
+                            <span>Product Category</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{ route('admin.product.index') }}">
+                            <span>Product</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
+
         </ul>
     </aside>
 </div>
