@@ -17,4 +17,12 @@ class Product extends Model
     public function productImages(){
         return $this->hasMany(ProductGallery::class);
     }
+
+    public function productSizes(){
+        return $this->hasMany(ProductSize::class);
+    }
+
+    public function productOptions(){
+        return $this->hasMany(ProductOption::class);
+    }
 }
