@@ -18,7 +18,26 @@
                                 <a class="nav-link active" id="home-tab4" data-toggle="tab" href="#general-setting"
                                    role="tab" aria-controls="home" aria-selected="true">General Settings</a>
                             </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link" id="home-tab4" data-toggle="tab" href="#logo-setting" role="tab"
+                                   aria-controls="home" aria-selected="true">Logo Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="home-tab4" data-toggle="tab" href="#appearance-setting" role="tab"
+                                   aria-controls="home" aria-selected="true">Appearance Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#pusher-setting"
+                                   role="tab" aria-controls="profile" aria-selected="false">Pusher Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="" data-toggle="tab" href="#mail-setting" role="tab"
+                                   aria-controls="contact" aria-selected="false">Mail Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="" data-toggle="tab" href="#seo-setting" role="tab"
+                                   aria-controls="contact" aria-selected="false">Seo Settings</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-12 col-sm-12 col-md-10">
@@ -26,7 +45,15 @@
 
                             @include('admin.setting.sections.general-setting')
 
+{{--                            @include('admin.setting.sections.logo-setting')--}}
 
+{{--                            @include('admin.setting.sections.appearance-setting')--}}
+
+{{--                            @include('admin.setting.sections.pusher-setting')--}}
+
+{{--                            @include('admin.setting.sections.mail-setting')--}}
+
+{{--                            @include('admin.setting.sections.seo-setting')--}}
 
 
                         </div>
