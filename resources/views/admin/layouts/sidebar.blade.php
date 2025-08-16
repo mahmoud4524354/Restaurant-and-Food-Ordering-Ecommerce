@@ -87,6 +87,12 @@
                 </ul>
             </li>
 
+            <li>
+                <a href="{{route('admin.setting.index')}}" class="nav-link "><i class="fa fa-cog"></i>
+                    <span>Settings</span></a>
+            </li>
         </ul>
+
+
     </aside>
 </div>
