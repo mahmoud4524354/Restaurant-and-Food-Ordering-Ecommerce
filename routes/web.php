@@ -38,6 +38,11 @@ Route::get('/',[FrontendController::class,'index'])->name('index');
 /** Show Product details page */
 Route::get('/product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');
 
+/** Product Modal Route */
+Route::get('/load-product-modal/{productId}', [FrontendController::class, 'loadProductModal'])->name('load-product-modal');
+
+
+
 require __DIR__.'/auth.php';
 
 

@@ -21,10 +21,27 @@
     <link rel="stylesheet" href="{{asset('frontend')}}/css/responsive.css">
     <link rel="stylesheet" href="{{asset('frontend')}}/css/toastr.css">
     <link rel="stylesheet" href="{{asset('frontend')}}/css/toastr.min.css">
-    <!-- <link rel="stylesheet" href="{{asset('frontend')}}/css/rtl.css"> -->
 </head>
 
 <body>
+
+<!--=============================
+        Cart Popup Modal Start
+    ==============================-->
+<div class="fp__cart_popup">
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body load_product_modal_body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=============================
+    Cart Popup Modal End
+==============================-->
 
 <!--=============================
     TOPBAR START
@@ -139,6 +156,9 @@
         $('.button-click').click();
     })
 </script>
+
+<!-- Load global js -->
+@include('frontend.layouts.global-scripts')
 
 @stack('scripts')
 </body>

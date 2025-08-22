@@ -36,11 +36,20 @@ class FrontendController extends Controller
     }
 
 
-    public function showProduct(string $slug){
-        $product = Product::with(['productImages', 'productSizes', 'productOptions'])->where(['slug' =>$slug ,'status' => 1])->firstOrFail();
+    public function showProduct(string $slug)
+    {
+        $product = Product::with(['productImages', 'productSizes', 'productOptions'])->where(['slug' => $slug, 'status' => 1])->firstOrFail();
         $relatedProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)->take(8)->latest()->get();
         return view('frontend.pages.product-view', get_defined_vars());
+    }
+
+    function loadProductModal($productId)
+    {
+        $product = Product::with(['productSizes', 'productOptions'])->findOrFail($productId);
+
+        return view('frontend.layouts.ajax-files.product-popup-modal', compact('product'))
+            ->render();
     }
 
 }
