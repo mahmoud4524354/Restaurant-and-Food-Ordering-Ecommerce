@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
     <title>FoodPark || Restaurant Template</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
     <link rel="icon" type="image/png" href="{{asset('frontend')}}/images/favicon.png">
     <link rel="stylesheet" href="{{asset('frontend')}}/css/all.min.css">
@@ -21,9 +21,19 @@
     <link rel="stylesheet" href="{{asset('frontend')}}/css/responsive.css">
     <link rel="stylesheet" href="{{asset('frontend')}}/css/toastr.css">
     <link rel="stylesheet" href="{{asset('frontend')}}/css/toastr.min.css">
+
+    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
+
 </head>
 
 <body>
+    <div class="overlay-container d-none">
+     <div class="overlay">
+           <span class="loader"></span>
+        </div>
+    </div>
 
 <!--=============================
         Cart Popup Modal Start
@@ -66,6 +76,7 @@
             </div>
         </div>
     </div>
+
 </section>
 <!--=============================
     TOPBAR END
@@ -152,7 +163,7 @@
         }
     });
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.button-click').click();
     })
 </script>
@@ -161,6 +172,7 @@
 @include('frontend.layouts.global-scripts')
 
 @stack('scripts')
+
 </body>
 
 </html>
